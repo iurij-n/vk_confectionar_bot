@@ -47,13 +47,13 @@ def get_bot_keybord(keyboard):
 
 # SECTION_LIST = ['Торты', 'Пирожные', 'Хлеб', 'Блинчики']
 
-MAIN_KEYBOARD = {
-    'one_time': False,
-    'buttons': [
-        [get_text_button('Торты', 'primary'), get_text_button('Пирожные', 'primary')],
-        [get_text_button('Хлеб', 'primary'), get_text_button('Блинчики', 'primary')]
-    ]
-}
+# MAIN_KEYBOARD = {
+#     'one_time': False,
+#     'buttons': [
+#         [get_text_button('Торты', 'primary'), get_text_button('Пирожные', 'primary')],
+#         [get_text_button('Хлеб', 'primary'), get_text_button('Блинчики', 'primary')]
+#     ]
+# }
 
 SECTIONS = {
     'Главное меню': {
