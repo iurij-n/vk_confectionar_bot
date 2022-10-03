@@ -1,4 +1,5 @@
 import os
+import sqlite3
 
 import vk_api
 import json
@@ -16,6 +17,7 @@ if os.path.exists(dotenv_path):
 TOKEN = os.getenv('TOKEN')
 
 CALLBACK_TYPES = ('show_snackbar', 'open_link', 'open_app')
+
 
 authorize = vk_api.VkApi(token=TOKEN)
 longpool = VkLongPoll(authorize)
@@ -44,7 +46,44 @@ def get_text_button(label, color):
 def get_bot_keybord(keyboard):
     return str(json.dumps(keyboard, ensure_ascii=False).encode('utf-8').decode('utf-8'))
 
+def get_assortment():
+    connect = sqlite3.connect('db.sqlite')
+    cursor = connect.cursor()
+    
+    cursor.execute('''
+        SELECT product_name
+        FROM assortment
+    ''')
+    
+    
+    cursor_value = tuple(cursor)
+    
+    connect.commit()
+    connect.close()
+    
+    
+    return [value[0] for value in tuple(cursor_value)]
 
+def get_product_info(product_name: str) -> str:
+    
+    connect = sqlite3.connect('db.sqlite')
+    cursor = connect.cursor()
+    
+    cursor.execute('''
+        SELECT product_name, product_description
+        FROM assortment
+    ''')
+    
+    
+    cursor_value = tuple(cursor)
+    
+    connect.commit()
+    connect.close()
+    
+    
+    return [value[1] for value in tuple(cursor_value) if value[0] == product_name]
+    
+    
 # SECTION_LIST = ['Торты', 'Пирожные', 'Хлеб', 'Блинчики']
 
 # MAIN_KEYBOARD = {
@@ -54,6 +93,9 @@ def get_bot_keybord(keyboard):
 #         [get_text_button('Хлеб', 'primary'), get_text_button('Блинчики', 'primary')]
 #     ]
 # }
+ASSORTMENT = get_assortment()
+
+print(ASSORTMENT)
 
 SECTIONS = {
     'Главное меню': {
@@ -190,9 +232,14 @@ SECTIONS = {
 for event in longpool.listen():
     if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
         print(event.type, event.text, event.user_id)
+        if event.text == '\start':
+            keyboard = SECTIONS['Главное меню']['keyboard']
+            message = 'Выберите раздел:'
         if event.text in list(SECTIONS):
             keyboard = SECTIONS[event.text]['keyboard']
             message = f'Вы находитесь в разделе \"{event.text}\"'
+        if event.text in ASSORTMENT:
+            message = get_product_info(event.text)
         
         # if event.text == 'Торты':
         #     keyboard = CAKE_KEYBOARD
