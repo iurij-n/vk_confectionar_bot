@@ -8,13 +8,20 @@ def get_text_button(label, color):
                 'color': f'{color}'
             }
 
+
 SECTIONS = {
     'Главное меню': {
         'keyboard': {
                     'one_time': False,
                     'buttons': [
-                        [get_text_button('Торты', 'primary'), get_text_button('Пирожные', 'primary')],
-                        [get_text_button('Хлеб', 'primary'), get_text_button('Блинчики', 'primary')]
+                        [
+                            get_text_button('Торты', 'primary'),
+                            get_text_button('Пирожные', 'primary')
+                        ],
+                        [
+                            get_text_button('Хлеб', 'primary'),
+                            get_text_button('Блинчики', 'primary')
+                        ]
                     ]
                 }
         },
@@ -23,11 +30,11 @@ SECTIONS = {
                      'one_time': False,
                      'buttons': [
                          [
-                             get_text_button('Прага', 'primary'),
-                             get_text_button('Йогуртовый', 'primary')
+                            get_text_button('Прага', 'primary'),
+                            get_text_button('Йогуртовый', 'primary')
                          ],
                          [
-                             get_text_button('Главное меню', 'secondary')
+                            get_text_button('Главное меню', 'secondary')
                          ]
                      ]
                     }
