@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS sections(
 
 CREATE TABLE IF NOT EXISTS assortment(
     id INTEGER PRIMARY KEY,
-    product_name TEXT NOT NULL,
+    product_name TEXT UNICUE NOT NULL,
     product_description TEXT,
     product_photo BLOB,
     section_id INTEGER,
